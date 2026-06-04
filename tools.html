@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools & Trackers — Ordena</title>
+<meta name="description" content="Ordena — operational support and systems for small service businesses. From chaos to clarity.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>/* ── Ordena shared styles ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal-dark:#0F3D30;--teal:#1D6B58;--teal-mid:#2D8A70;
+  --teal-light:#E8F2EF;--teal-pale:#F0FAF6;
+  --ink:#1A1917;--ink-mid:#4A4845;--ink-light:#8A8784;
+  --paper:#F7F5F0;--paper-mid:#EDE9E2;--rule:#D5D1C8;--white:#FFFFFF;
+  --amber:#B45309;--amber-light:#FEF3C7;
+}
+html{background:var(--paper);scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;font-weight:400;color:var(--ink);background:var(--paper);line-height:1.6}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,245,240,0.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+.nav-logo{height:28px;width:auto;display:block}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{font-size:13px;font-weight:500;color:var(--ink-mid);text-decoration:none;transition:color 0.15s}
+.nav-links a:hover,.nav-links a.active{color:var(--teal)}
+.nav-cta{font-size:13px;font-weight:500;color:var(--white)!important;background:var(--teal);padding:9px 18px;border-radius:6px;text-decoration:none;transition:background 0.15s;white-space:nowrap}
+.nav-cta:hover{background:var(--teal-dark)!important}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-hamburger span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:all 0.2s}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--rule);padding:1.5rem 2rem;flex-direction:column;gap:1.25rem;z-index:99}
+.mobile-menu a{font-size:15px;font-weight:500;color:var(--ink-mid);text-decoration:none}
+.mobile-menu a.active{color:var(--teal)}
+.mobile-menu .nav-cta{text-align:center;display:block;color:var(--white)!important}
+
+/* TYPOGRAPHY */
+h1{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(38px,6vw,64px);font-weight:400;color:var(--ink);line-height:1.12;letter-spacing:-0.5px}
+h1 em{font-style:italic;color:var(--teal)}
+h2{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(24px,4vw,36px);font-weight:400;color:var(--ink);line-height:1.25}
+h3{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(18px,2.5vw,24px);font-weight:400;color:var(--ink);line-height:1.3}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:24px;height:2px;background:var(--teal);display:block;flex-shrink:0}
+.section-label{font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1.5rem}
+
+/* BUTTONS */
+.btn-primary{font-size:15px;font-weight:500;color:var(--white);background:var(--teal);padding:13px 26px;border-radius:8px;text-decoration:none;transition:background 0.15s;display:inline-block;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--teal-dark)}
+.btn-secondary{font-size:14px;color:var(--teal);text-decoration:none;font-weight:500;padding:13px 0;border-bottom:1.5px solid transparent;transition:border-color 0.15s;display:inline-block}
+.btn-secondary:hover{border-color:var(--teal)}
+.btn-outline{font-size:14px;font-weight:500;color:var(--teal);background:transparent;border:1.5px solid var(--teal);padding:11px 22px;border-radius:8px;text-decoration:none;transition:all 0.15s;display:inline-block}
+.btn-outline:hover{background:var(--teal);color:var(--white)}
+
+/* LAYOUT */
+.page-wrap{padding-top:64px}
+.section{padding:64px 2rem;max-width:860px;margin:0 auto}
+.section-wide{padding:64px 2rem;max-width:1100px;margin:0 auto}
+.divider{width:100%;height:1px;background:var(--rule);max-width:860px;margin:0 auto}
+.divider-wide{width:100%;height:1px;background:var(--rule);max-width:1100px;margin:0 auto}
+
+/* DARK BAND */
+.band-dark{background:var(--teal-dark);padding:64px 2rem}
+.band-dark-inner{max-width:860px;margin:0 auto}
+.band-dark h2{color:var(--white)}
+.band-dark p{color:rgba(255,255,255,0.7)}
+
+/* CARDS */
+.card{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:1.5rem}
+.card-paper{background:var(--paper-mid);border:1px solid var(--rule);border-radius:12px;padding:1.5rem}
+.card-teal{background:var(--teal-light);border:1px solid #C5DDD7;border-radius:12px;padding:1.5rem}
+
+/* COMING SOON BADGE */
+.badge-soon{display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;background:var(--amber-light);color:var(--amber);padding:3px 9px;border-radius:20px;border:1px solid #FCD34D}
+.badge-live{display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;background:#DCFCE7;color:#166534;padding:3px 9px;border-radius:20px;border:1px solid #86EFAC}
+
+/* FOOTER */
+footer{border-top:1px solid var(--rule);padding:2rem;max-width:100%;background:var(--paper)}
+.footer-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:start;gap:2rem}
+.footer-logo{height:26px;width:auto;margin-bottom:0.75rem}
+.footer-note{font-size:12px;color:var(--ink-light);line-height:1.8}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:flex-end}
+.footer-links a{font-size:12px;color:var(--ink-light);text-decoration:none;transition:color 0.15s}
+.footer-links a:hover{color:var(--teal)}
+.footer-bottom{max-width:860px;margin:1rem auto 0;padding-top:1rem;border-top:1px solid var(--rule);font-size:11px;color:var(--ink-light);display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem}
+
+/* HERO */
+.hero{padding:100px 2rem 72px;max-width:860px;margin:0 auto;min-height:88vh;display:flex;flex-direction:column;justify-content:center}
+.hero-body{font-size:18px;color:var(--ink-mid);line-height:1.75;max-width:560px;margin-bottom:2.5rem}
+.hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+
+/* PAGE HERO (shorter — for inner pages) */
+.page-hero{padding:96px 2rem 48px;max-width:860px;margin:0 auto}
+.page-hero h1{font-size:clamp(32px,5vw,52px);margin-bottom:1rem}
+.page-hero p{font-size:17px;color:var(--ink-mid);line-height:1.75;max-width:560px}
+
+/* FINAL CTA BAND */
+.cta-band{padding:72px 2rem;text-align:center;background:var(--teal-dark)}
+.cta-band h2{color:var(--white);margin-bottom:1rem}
+.cta-band p{font-size:16px;color:rgba(255,255,255,0.7);max-width:440px;margin:0 auto 2rem;line-height:1.7}
+.cta-band .btn-primary{background:var(--white);color:var(--teal);font-size:16px;padding:15px 32px}
+.cta-band .btn-primary:hover{background:var(--teal-light)}
+.cta-band .contact-line{margin-top:1.25rem;font-size:13px;color:rgba(255,255,255,0.5)}
+.cta-band .contact-line a{color:rgba(255,255,255,0.75);text-decoration:none}
+.cta-band .contact-line a:hover{text-decoration:underline}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.anim-1{animation:fadeUp 0.5s ease both}
+.anim-2{animation:fadeUp 0.5s 0.1s ease both}
+.anim-3{animation:fadeUp 0.5s 0.2s ease both}
+.anim-4{animation:fadeUp 0.5s 0.3s ease both}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+  .mobile-menu.open{display:flex}
+  .hero{min-height:auto;padding:88px 1.25rem 48px}
+  .page-hero{padding:88px 1.25rem 40px}
+  .section,.section-wide{padding:48px 1.25rem}
+  .band-dark{padding:48px 1.25rem}
+  .cta-band{padding:56px 1.25rem}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-links{justify-content:flex-start}
+  h1{font-size:36px}
+}
+
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:2.5rem}
+.tool-card{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:1.5rem;display:flex;flex-direction:column;gap:0.75rem;transition:box-shadow 0.2s,border-color 0.2s}
+.tool-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.08);border-color:#C5DDD7}
+.tool-icon{width:40px;height:40px;background:var(--teal-light);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tool-name{font-family:'DM Serif Display',Georgia,serif;font-size:18px;color:var(--ink);line-height:1.2}
+.tool-desc{font-size:13px;color:var(--ink-mid);line-height:1.6;flex:1}
+.tool-features{list-style:none;display:flex;flex-direction:column;gap:4px}
+.tool-features li{font-size:12px;color:var(--ink-light);padding-left:14px;position:relative}
+.tool-features li::before{content:"--";position:absolute;left:0;color:var(--teal);font-size:10px;top:2px}
+.tool-footer{display:flex;align-items:center;justify-content:space-between;padding-top:0.75rem;border-top:1px solid var(--rule);margin-top:auto}
+.tool-price{font-size:15px;font-weight:500;color:var(--ink)}
+.bundle-card{background:var(--teal-dark);border-radius:12px;padding:2rem;color:white;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center}
+.bundle-card h3{font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:white;margin-bottom:0.5rem}
+.bundle-card p{font-size:15px;color:rgba(255,255,255,0.75);line-height:1.7;margin-bottom:1rem}
+.bundle-features{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:1.25rem}
+.bundle-features li{font-size:13px;color:rgba(255,255,255,0.8);padding-left:18px;position:relative}
+.bundle-features li::before{content:"✓";position:absolute;left:0;color:#9FE1CB;font-weight:600}
+.bundle-price{text-align:right;flex-shrink:0}
+.bundle-price .big{font-family:'DM Serif Display',Georgia,serif;font-size:40px;color:white;line-height:1}
+.bundle-price .small{font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px}
+.bundle-price .was{font-size:13px;color:rgba(255,255,255,0.35);text-decoration:line-through;margin-bottom:4px}
+@media(max-width:600px){.bundle-card{grid-template-columns:1fr}.bundle-price{text-align:left}}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav>
+  <a href="index.html"><svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" height="28">
+  <circle cx="40" cy="20" r="7" fill="#9FE1CB"/><circle cx="52" cy="38" r="7" fill="#9FE1CB"/><circle cx="36" cy="56" r="7" fill="#9FE1CB"/><circle cx="50" cy="74" r="7" fill="#9FE1CB"/><circle cx="38" cy="92" r="7" fill="#9FE1CB"/>
+  <circle cx="78" cy="24" r="7" fill="#5DCAA5"/><circle cx="82" cy="42" r="7" fill="#5DCAA5"/><circle cx="78" cy="60" r="7" fill="#5DCAA5"/><circle cx="82" cy="78" r="7" fill="#5DCAA5"/><circle cx="78" cy="96" r="7" fill="#5DCAA5"/>
+  <circle cx="118" cy="20" r="7" fill="#085041"/><circle cx="118" cy="38" r="7" fill="#085041"/><circle cx="118" cy="56" r="7" fill="#1D9E75"/><circle cx="118" cy="74" r="7" fill="#1D9E75"/><circle cx="118" cy="92" r="7" fill="#5DCAA5"/>
+  <text x="148" y="78" font-family="Arial,sans-serif" font-size="52" font-weight="300" fill="#085041" letter-spacing="6">ORDENA</text>
+</svg></a>
+  <div class="nav-links"><a href="index.html" class="">Home</a><a href="tools.html" class="active">Tools</a><a href="training.html" class="">Training</a><a href="support.html" class="">Support</a><a href="about.html" class="">About</a><a href="contact.html" class="">Contact</a><a href="ordena_diagnostic.html" class="nav-cta">Free health check</a></div>
+  <div class="nav-hamburger" onclick="toggleMenu()" id="burger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu"><a href="index.html" class="">Home</a><a href="tools.html" class="active">Tools</a><a href="training.html" class="">Training</a><a href="support.html" class="">Support</a><a href="about.html" class="">About</a><a href="contact.html" class="">Contact</a><a href="ordena_diagnostic.html" class="nav-cta">Free health check</a></div>
+
+<section class="page-hero">
+  <p class="eyebrow">Ready-made tools</p>
+  <h1>Operational trackers.<br>Download today, <em>use tomorrow.</em></h1>
+  <p>Every tracker is built in Excel with automatic RAG status, dashboard summaries, and dropdown validations. No setup required — open, add your team, and it works.</p>
+</section>
+
+<div class="divider"></div>
+
+<section class="section-wide">
+  <p class="section-label">Individual tools — from £49 each</p>
+  <h2 style="margin-bottom:0.5rem">Seven trackers covering every operational area</h2>
+  <p style="font-size:15px;color:var(--ink-mid);margin-bottom:2rem;max-width:480px;line-height:1.7">Each tracker includes an Instructions tab, working data tabs, and a Dashboard that auto-updates. No formulas to build. No formatting to do. Open it and go.</p>
+  <div class="tools-grid"><div class="tool-card">
+      <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="16" height="14" rx="2" stroke="#1D6B58" stroke-width="1.5"/>
+      <path d="M6 7h8M6 10h8M6 13h5" stroke="#1D6B58" stroke-width="1.5" stroke-linecap="round"/>
+    </svg></div>
+      <p class="tool-name">Staff Training Tracker</p>
+      <p class="tool-desc">Track training completion for your whole team. RAG status updates automatically — green, amber when due within 30 days, red when overdue.</p>
+      <ul class="tool-features"><li>Up to 10 staff members</li><li>Dashboard with compliance %</li><li>21 universal topics pre-loaded</li><li>Add your own topics</li></ul>
+      <div class="tool-footer">
+        <span class="tool-price">£49</span>
+        <a href="#" class="btn-primary" style="font-size:13px;padding:9px 18px">Buy now &rarr;</a>
+      </div>
+    </div><div class="tool-card">
+      <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="16" height="14" rx="2" stroke="#1D6B58" stroke-width="1.5"/>
+      <path d="M6 7h8M6 10h8M6 13h5" stroke="#1D6B58" stroke-width="1.5" stroke-linecap="round"/>
+    </svg></div>
+      <p class="tool-name">Recruitment Tracker</p>
+      <p class="tool-desc">From application to employment. Pre-hire compliance checks and ongoing employee compliance in one workbook.</p>
+      <ul class="tool-features"><li>Right to work, DBS, references</li><li>Pre-hire and ongoing tabs</li><li>RAG on all expiry dates</li><li>Dropdown validations throughout</li></ul>
+      <div class="tool-footer">
+        <span class="tool-price">£49</span>
+        <a href="#" class="btn-primary" style="font-size:13px;padding:9px 18px">Buy now &rarr;</a>
+      </div>
+    </div><div class="tool-card">
+      <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="16" height="14" rx="2" stroke="#1D6B58" stroke-width="1.5"/>
+      <path d="M6 7h8M6 10h8M6 13h5" stroke="#1D6B58" stroke-width="1.5" stroke-linecap="round"/>
+    </svg></div>
+      <p class="tool-name">Equipment Servicing Schedule</p>
+      <p class="tool-desc">Never miss a service or inspection date. 27 universal items pre-loaded with legislation references. Add your own equipment.</p>
+      <ul class="tool-features"><li>27 items pre-populated</li><li>Auto-calculates next due date</li><li>Legislation reference column</li><li>Service record log tab</li></ul>
+      <div class="tool-footer">
+        <span class="tool-price">£49</span>
+        <a href="#" class="btn-primary" style="font-size:13px;padding:9px 18px">Buy now &rarr;</a>
+      </div>
+    </div><div class="tool-card">
+      <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="16" height="14" rx="2" stroke="#1D6B58" stroke-width="1.5"/>
+      <path d="M6 7h8M6 10h8M6 13h5" stroke="#1D6B58" stroke-width="1.5" stroke-linecap="round"/>
+    </svg></div>
+      <p class="tool-name">Servicing Contracts Log</p>
+      <p class="tool-desc">Track every supplier contract, renewal date, and notice deadline. Auto-calculates notice deadlines so you never get caught in an unwanted auto-renewal.</p>
+      <ul class="tool-features"><li>Notice deadline auto-formula</li><li>Auto-renewal flag</li><li>Total annual spend summary</li><li>RAG on expiry and notice dates</li></ul>
+      <div class="tool-footer">
+        <span class="tool-price">£49</span>
+        <a href="#" class="btn-primary" style="font-size:13px;padding:9px 18px">Buy now &rarr;</a>
+      </div>
+    </div><div class="tool-card">
+      <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="16" height="14" rx="2" stroke="#1D6B58" stroke-width="1.5"/>
+      <path d="M6 7h8M6 10h8M6 13h5" stroke="#1D6B58" stroke-width="1.5" stroke-linecap="round"/>
+    </svg></div>
+      <p class="tool-name">Performance & Probation Tracker</p>
+      <p class="tool-desc">Manage probation milestones, 1-2-1 meetings, performance objectives and PIPs in one place. Review dates RAG automatically.</p>
+      <ul class="tool-features"><li>Probation milestone formulas</li><li>1-2-1 meeting log (200 rows)</li><li>Performance objectives tracker</li><li>PIP log with outcome tracking</li></ul>
+      <div class="tool-footer">
+        <span class="tool-price">£49</span>
+        <a href="#" class="btn-primary" style="font-size:13px;padding:9px 18px">Buy now &rarr;</a>
+      </div>
+    </div><div class="tool-card">
+      <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="16" height="14" rx="2" stroke="#1D6B58" stroke-width="1.5"/>
+      <path d="M6 7h8M6 10h8M6 13h5" stroke="#1D6B58" stroke-width="1.5" stroke-linecap="round"/>
+    </svg></div>
+      <p class="tool-name">Risk Register</p>
+      <p class="tool-desc">Auto-calculates inherent and residual risk scores. 12 risk categories with examples. Dashboard shows your risk profile at a glance.</p>
+      <ul class="tool-features"><li>Likelihood × Impact auto-score</li><li>Low / Medium / High RAG</li><li>Auto-generated risk IDs</li><li>12 category reference tab</li></ul>
+      <div class="tool-footer">
+        <span class="tool-price">£49</span>
+        <a href="#" class="btn-primary" style="font-size:13px;padding:9px 18px">Buy now &rarr;</a>
+      </div>
+    </div><div class="tool-card">
+      <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="16" height="14" rx="2" stroke="#1D6B58" stroke-width="1.5"/>
+      <path d="M6 7h8M6 10h8M6 13h5" stroke="#1D6B58" stroke-width="1.5" stroke-linecap="round"/>
+    </svg></div>
+      <p class="tool-name">Policy Register</p>
+      <p class="tool-desc">Log every policy, its owner, version, and next review date. 27 core policies pre-listed. Audit-ready from day one.</p>
+      <ul class="tool-features"><li>27 universal policies included</li><li>Auto-generated policy IDs</li><li>Review date RAG</li><li>Owner and approval tracking</li></ul>
+      <div class="tool-footer">
+        <span class="tool-price">£49</span>
+        <a href="#" class="btn-primary" style="font-size:13px;padding:9px 18px">Buy now &rarr;</a>
+      </div>
+    </div></div>
+
+  <div class="divider-wide" style="margin-bottom:2.5rem"></div>
+
+  <p class="section-label">Bundles — better value</p>
+  <h2 style="margin-bottom:0.5rem">Buy related trackers together</h2>
+  <p style="font-size:15px;color:var(--ink-mid);margin-bottom:2rem;max-width:480px;line-height:1.7">If you know you need more than one tracker, the bundles save you money and get you set up faster.</p>
+  <div class="bundle-card" style="margin-bottom:16px">
+    <div>
+      <h3>People & HR Bundle</h3>
+      <p>Everything you need to manage your team compliantly — from hiring through to performance and training.</p>
+      <ul class="bundle-features"><li>Staff Training Tracker</li><li>Recruitment Tracker</li><li>Performance & Probation Tracker</li></ul>
+      <a href="#" class="btn-primary" style="background:white;color:var(--teal);font-size:14px;padding:11px 22px">Get this bundle &rarr;</a>
+    </div>
+    <div class="bundle-price">
+      <p class="was">£147</p>
+      <p class="big">£99</p>
+      <p class="small">Save £48</p>
+    </div>
+  </div><div class="bundle-card" style="margin-bottom:16px">
+    <div>
+      <h3>Compliance & Governance Bundle</h3>
+      <p>The toolkit for businesses that need to demonstrate compliance — to regulators, insurers, or clients.</p>
+      <ul class="bundle-features"><li>Risk Register</li><li>Policy Register</li><li>Equipment Servicing Schedule</li><li>Servicing Contracts Log</li></ul>
+      <a href="#" class="btn-primary" style="background:white;color:var(--teal);font-size:14px;padding:11px 22px">Get this bundle &rarr;</a>
+    </div>
+    <div class="bundle-price">
+      <p class="was">£196</p>
+      <p class="big">£129</p>
+      <p class="small">Save £67</p>
+    </div>
+  </div><div class="bundle-card" style="margin-bottom:16px">
+    <div>
+      <h3>Complete Operations Pack</h3>
+      <p>All seven trackers. Everything Ordena has built. The full operational infrastructure for a small service business.</p>
+      <ul class="bundle-features"><li>All 7 trackers included</li><li>People, compliance and equipment covered</li><li>Lifetime updates for 12 months</li></ul>
+      <a href="#" class="btn-primary" style="background:white;color:var(--teal);font-size:14px;padding:11px 22px">Get this bundle &rarr;</a>
+    </div>
+    <div class="bundle-price">
+      <p class="was">£343</p>
+      <p class="big">£249</p>
+      <p class="small">Save £94</p>
+    </div>
+  </div>
+</section>
+
+<div style="background:var(--paper-mid);padding:48px 2rem">
+  <div style="max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center">
+    <div>
+      <p class="section-label">How they work</p>
+      <h2 style="font-size:clamp(20px,3vw,28px);margin-bottom:1rem">Built in Excel. Works everywhere.</h2>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:12px">
+        <li style="display:flex;gap:12px;align-items:flex-start">
+          <span style="width:24px;height:24px;background:var(--teal-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--teal);flex-shrink:0;margin-top:1px">1</span>
+          <span style="font-size:14px;color:var(--ink-mid);line-height:1.6"><strong style="color:var(--ink)">Download the file.</strong> Delivered instantly on purchase via Gumroad.</span>
+        </li>
+        <li style="display:flex;gap:12px;align-items:flex-start">
+          <span style="width:24px;height:24px;background:var(--teal-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--teal);flex-shrink:0;margin-top:1px">2</span>
+          <span style="font-size:14px;color:var(--ink-mid);line-height:1.6"><strong style="color:var(--ink)">Add your data.</strong> Replace the placeholder names, roles, and dates with your team's information.</span>
+        </li>
+        <li style="display:flex;gap:12px;align-items:flex-start">
+          <span style="width:24px;height:24px;background:var(--teal-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--teal);flex-shrink:0;margin-top:1px">3</span>
+          <span style="font-size:14px;color:var(--ink-mid);line-height:1.6"><strong style="color:var(--ink)">The dashboard does the rest.</strong> RAG colours update automatically. No formulas to touch.</span>
+        </li>
+      </ul>
+    </div>
+    <div class="card-teal">
+      <p style="font-size:13px;font-weight:500;color:var(--teal);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.08em">Need something custom?</p>
+      <h3 style="font-size:20px;margin-bottom:0.75rem">Not quite the right fit?</h3>
+      <p style="font-size:14px;color:var(--ink-mid);line-height:1.7;margin-bottom:1.25rem">If you need a tracker adapted to your specific sector, team size, or process, we can build it as part of a system build engagement.</p>
+      <a href="support.html" class="btn-outline">See system build options</a>
+    </div>
+  </div>
+</div>
+
+<section class="cta-band">
+  <h2>Not sure which tools you need?</h2>
+  <p>Take the free health check first. It will tell you exactly where your operational gaps are — and which tools will fix them.</p>
+  <a href="ordena_diagnostic.html" class="btn-primary">Take the free health check &rarr;</a>
+  <p class="contact-line">Or <a href="contact.html">get in touch</a> and we'll point you in the right direction.</p>
+</section><footer>
+  <div class="footer-inner">
+    <div>
+      <svg class="footer-logo" viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" height="26">
+        <circle cx="40" cy="20" r="7" fill="#9FE1CB"/><circle cx="52" cy="38" r="7" fill="#9FE1CB"/><circle cx="36" cy="56" r="7" fill="#9FE1CB"/><circle cx="50" cy="74" r="7" fill="#9FE1CB"/><circle cx="38" cy="92" r="7" fill="#9FE1CB"/>
+        <circle cx="78" cy="24" r="7" fill="#5DCAA5"/><circle cx="82" cy="42" r="7" fill="#5DCAA5"/><circle cx="78" cy="60" r="7" fill="#5DCAA5"/><circle cx="82" cy="78" r="7" fill="#5DCAA5"/><circle cx="78" cy="96" r="7" fill="#5DCAA5"/>
+        <circle cx="118" cy="20" r="7" fill="#085041"/><circle cx="118" cy="38" r="7" fill="#085041"/><circle cx="118" cy="56" r="7" fill="#1D9E75"/><circle cx="118" cy="74" r="7" fill="#1D9E75"/><circle cx="118" cy="92" r="7" fill="#5DCAA5"/>
+        <text x="148" y="78" font-family="Arial,sans-serif" font-size="52" font-weight="300" fill="#085041" letter-spacing="6">ORDENA</text>
+      </svg>
+      <p class="footer-note">England-based &middot; Operational support for small businesses<br>hello@ordena.co.uk &middot; ordena.co.uk</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="tools.html">Tools</a>
+      <a href="training.html">Training</a>
+      <a href="support.html">Support</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="cookies.html">Cookie Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Ordena. All rights reserved.</span>
+    <span>Registered in England &middot; Operational consultancy for service businesses</span>
+  </div>
+</footer>
+<script>
+function toggleMenu(){
+  const m=document.getElementById('mobileMenu');
+  m.classList.toggle('open');
+}
+</script></div></body></html>

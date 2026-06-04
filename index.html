@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operational support for small businesses — Ordena</title>
+<meta name="description" content="Ordena — operational support and systems for small service businesses. From chaos to clarity.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>/* ── Ordena shared styles ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal-dark:#0F3D30;--teal:#1D6B58;--teal-mid:#2D8A70;
+  --teal-light:#E8F2EF;--teal-pale:#F0FAF6;
+  --ink:#1A1917;--ink-mid:#4A4845;--ink-light:#8A8784;
+  --paper:#F7F5F0;--paper-mid:#EDE9E2;--rule:#D5D1C8;--white:#FFFFFF;
+  --amber:#B45309;--amber-light:#FEF3C7;
+}
+html{background:var(--paper);scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;font-weight:400;color:var(--ink);background:var(--paper);line-height:1.6}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,245,240,0.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+.nav-logo{height:28px;width:auto;display:block}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{font-size:13px;font-weight:500;color:var(--ink-mid);text-decoration:none;transition:color 0.15s}
+.nav-links a:hover,.nav-links a.active{color:var(--teal)}
+.nav-cta{font-size:13px;font-weight:500;color:var(--white)!important;background:var(--teal);padding:9px 18px;border-radius:6px;text-decoration:none;transition:background 0.15s;white-space:nowrap}
+.nav-cta:hover{background:var(--teal-dark)!important}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-hamburger span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:all 0.2s}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--rule);padding:1.5rem 2rem;flex-direction:column;gap:1.25rem;z-index:99}
+.mobile-menu a{font-size:15px;font-weight:500;color:var(--ink-mid);text-decoration:none}
+.mobile-menu a.active{color:var(--teal)}
+.mobile-menu .nav-cta{text-align:center;display:block;color:var(--white)!important}
+
+/* TYPOGRAPHY */
+h1{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(38px,6vw,64px);font-weight:400;color:var(--ink);line-height:1.12;letter-spacing:-0.5px}
+h1 em{font-style:italic;color:var(--teal)}
+h2{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(24px,4vw,36px);font-weight:400;color:var(--ink);line-height:1.25}
+h3{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(18px,2.5vw,24px);font-weight:400;color:var(--ink);line-height:1.3}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:24px;height:2px;background:var(--teal);display:block;flex-shrink:0}
+.section-label{font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1.5rem}
+
+/* BUTTONS */
+.btn-primary{font-size:15px;font-weight:500;color:var(--white);background:var(--teal);padding:13px 26px;border-radius:8px;text-decoration:none;transition:background 0.15s;display:inline-block;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--teal-dark)}
+.btn-secondary{font-size:14px;color:var(--teal);text-decoration:none;font-weight:500;padding:13px 0;border-bottom:1.5px solid transparent;transition:border-color 0.15s;display:inline-block}
+.btn-secondary:hover{border-color:var(--teal)}
+.btn-outline{font-size:14px;font-weight:500;color:var(--teal);background:transparent;border:1.5px solid var(--teal);padding:11px 22px;border-radius:8px;text-decoration:none;transition:all 0.15s;display:inline-block}
+.btn-outline:hover{background:var(--teal);color:var(--white)}
+
+/* LAYOUT */
+.page-wrap{padding-top:64px}
+.section{padding:64px 2rem;max-width:860px;margin:0 auto}
+.section-wide{padding:64px 2rem;max-width:1100px;margin:0 auto}
+.divider{width:100%;height:1px;background:var(--rule);max-width:860px;margin:0 auto}
+.divider-wide{width:100%;height:1px;background:var(--rule);max-width:1100px;margin:0 auto}
+
+/* DARK BAND */
+.band-dark{background:var(--teal-dark);padding:64px 2rem}
+.band-dark-inner{max-width:860px;margin:0 auto}
+.band-dark h2{color:var(--white)}
+.band-dark p{color:rgba(255,255,255,0.7)}
+
+/* CARDS */
+.card{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:1.5rem}
+.card-paper{background:var(--paper-mid);border:1px solid var(--rule);border-radius:12px;padding:1.5rem}
+.card-teal{background:var(--teal-light);border:1px solid #C5DDD7;border-radius:12px;padding:1.5rem}
+
+/* COMING SOON BADGE */
+.badge-soon{display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;background:var(--amber-light);color:var(--amber);padding:3px 9px;border-radius:20px;border:1px solid #FCD34D}
+.badge-live{display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;background:#DCFCE7;color:#166534;padding:3px 9px;border-radius:20px;border:1px solid #86EFAC}
+
+/* FOOTER */
+footer{border-top:1px solid var(--rule);padding:2rem;max-width:100%;background:var(--paper)}
+.footer-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:start;gap:2rem}
+.footer-logo{height:26px;width:auto;margin-bottom:0.75rem}
+.footer-note{font-size:12px;color:var(--ink-light);line-height:1.8}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:flex-end}
+.footer-links a{font-size:12px;color:var(--ink-light);text-decoration:none;transition:color 0.15s}
+.footer-links a:hover{color:var(--teal)}
+.footer-bottom{max-width:860px;margin:1rem auto 0;padding-top:1rem;border-top:1px solid var(--rule);font-size:11px;color:var(--ink-light);display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem}
+
+/* HERO */
+.hero{padding:100px 2rem 72px;max-width:860px;margin:0 auto;min-height:88vh;display:flex;flex-direction:column;justify-content:center}
+.hero-body{font-size:18px;color:var(--ink-mid);line-height:1.75;max-width:560px;margin-bottom:2.5rem}
+.hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+
+/* PAGE HERO (shorter — for inner pages) */
+.page-hero{padding:96px 2rem 48px;max-width:860px;margin:0 auto}
+.page-hero h1{font-size:clamp(32px,5vw,52px);margin-bottom:1rem}
+.page-hero p{font-size:17px;color:var(--ink-mid);line-height:1.75;max-width:560px}
+
+/* FINAL CTA BAND */
+.cta-band{padding:72px 2rem;text-align:center;background:var(--teal-dark)}
+.cta-band h2{color:var(--white);margin-bottom:1rem}
+.cta-band p{font-size:16px;color:rgba(255,255,255,0.7);max-width:440px;margin:0 auto 2rem;line-height:1.7}
+.cta-band .btn-primary{background:var(--white);color:var(--teal);font-size:16px;padding:15px 32px}
+.cta-band .btn-primary:hover{background:var(--teal-light)}
+.cta-band .contact-line{margin-top:1.25rem;font-size:13px;color:rgba(255,255,255,0.5)}
+.cta-band .contact-line a{color:rgba(255,255,255,0.75);text-decoration:none}
+.cta-band .contact-line a:hover{text-decoration:underline}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.anim-1{animation:fadeUp 0.5s ease both}
+.anim-2{animation:fadeUp 0.5s 0.1s ease both}
+.anim-3{animation:fadeUp 0.5s 0.2s ease both}
+.anim-4{animation:fadeUp 0.5s 0.3s ease both}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+  .mobile-menu.open{display:flex}
+  .hero{min-height:auto;padding:88px 1.25rem 48px}
+  .page-hero{padding:88px 1.25rem 40px}
+  .section,.section-wide{padding:48px 1.25rem}
+  .band-dark{padding:48px 1.25rem}
+  .cta-band{padding:56px 1.25rem}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-links{justify-content:flex-start}
+  h1{font-size:36px}
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav>
+  <a href="index.html"><svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" height="28">
+  <circle cx="40" cy="20" r="7" fill="#9FE1CB"/><circle cx="52" cy="38" r="7" fill="#9FE1CB"/><circle cx="36" cy="56" r="7" fill="#9FE1CB"/><circle cx="50" cy="74" r="7" fill="#9FE1CB"/><circle cx="38" cy="92" r="7" fill="#9FE1CB"/>
+  <circle cx="78" cy="24" r="7" fill="#5DCAA5"/><circle cx="82" cy="42" r="7" fill="#5DCAA5"/><circle cx="78" cy="60" r="7" fill="#5DCAA5"/><circle cx="82" cy="78" r="7" fill="#5DCAA5"/><circle cx="78" cy="96" r="7" fill="#5DCAA5"/>
+  <circle cx="118" cy="20" r="7" fill="#085041"/><circle cx="118" cy="38" r="7" fill="#085041"/><circle cx="118" cy="56" r="7" fill="#1D9E75"/><circle cx="118" cy="74" r="7" fill="#1D9E75"/><circle cx="118" cy="92" r="7" fill="#5DCAA5"/>
+  <text x="148" y="78" font-family="Arial,sans-serif" font-size="52" font-weight="300" fill="#085041" letter-spacing="6">ORDENA</text>
+</svg></a>
+  <div class="nav-links"><a href="index.html" class="active">Home</a><a href="tools.html" class="">Tools</a><a href="training.html" class="">Training</a><a href="support.html" class="">Support</a><a href="about.html" class="">About</a><a href="contact.html" class="">Contact</a><a href="ordena_diagnostic.html" class="nav-cta">Free health check</a></div>
+  <div class="nav-hamburger" onclick="toggleMenu()" id="burger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu"><a href="index.html" class="active">Home</a><a href="tools.html" class="">Tools</a><a href="training.html" class="">Training</a><a href="support.html" class="">Support</a><a href="about.html" class="">About</a><a href="contact.html" class="">Contact</a><a href="ordena_diagnostic.html" class="nav-cta">Free health check</a></div>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="eyebrow anim-1">Ordena &mdash; From chaos to clarity</p>
+  <h1 class="anim-2">Find out <em>exactly</em> where your business operations are letting you down</h1>
+  <div class="hero-body anim-3">
+    <p>The free operational health check takes five minutes. You get a personalised report showing your priority gaps — no email required to start.</p>
+    <p>Most businesses we work with aren't struggling because their people are underperforming. The systems underneath the team are fragmented, duplicated, or just absent.</p>
+  </div>
+  <div class="hero-actions anim-4">
+    <a href="ordena_diagnostic.html" class="btn-primary">Take the free health check &rarr;</a>
+    <a href="tools.html" class="btn-secondary">Browse ready-made tools</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<section class="band-dark">
+  <div class="band-dark-inner">
+    <p class="section-label" style="color:rgba(255,255,255,0.45)">How Ordena works</p>
+    <h2 style="margin-bottom:0.5rem">We assess, build, and hand over</h2>
+    <p style="margin-bottom:2.5rem;max-width:440px;font-size:16px">Systems that run with or without us. Four steps from first contact to operational clarity.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;margin-bottom:2.5rem">
+      <div style="background:rgba(255,255,255,0.04);padding:1.25rem 1.1rem">
+        <p style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(159,225,203,0.6);margin-bottom:8px">Step 01</p>
+        <p style="font-size:15px;font-weight:500;color:#fff;margin-bottom:4px">Health check</p>
+        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5">18 questions. 5 minutes. A personalised report showing your priority gaps.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);padding:1.25rem 1.1rem">
+        <p style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(159,225,203,0.6);margin-bottom:8px">Step 02</p>
+        <p style="font-size:15px;font-weight:500;color:#fff;margin-bottom:4px">Assessment</p>
+        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5">We go deeper — reviewing your current systems, documents, and processes in detail.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);padding:1.25rem 1.1rem">
+        <p style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(159,225,203,0.6);margin-bottom:8px">Step 03</p>
+        <p style="font-size:15px;font-weight:500;color:#fff;margin-bottom:4px">System build</p>
+        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5">We design and build the right systems for your business. Practical, not theoretical.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);padding:1.25rem 1.1rem">
+        <p style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(159,225,203,0.6);margin-bottom:8px">Step 04</p>
+        <p style="font-size:15px;font-weight:500;color:#fff;margin-bottom:4px">Handover</p>
+        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5">Your team is trained and confident. Systems run without us needing to be there.</p>
+      </div>
+    </div>
+    <a href="support.html" style="display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;color:#fff;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);padding:12px 24px;border-radius:8px;text-decoration:none;transition:background 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.18)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">See how we work with clients &rarr;</a>
+  </div>
+</section>
+
+<!-- WHAT WE OFFER -->
+<section class="section">
+  <p class="section-label">What we offer</p>
+  <h2 style="margin-bottom:0.5rem">Three ways to work with Ordena</h2>
+  <p style="font-size:15px;color:var(--ink-mid);margin-bottom:2rem;max-width:460px;line-height:1.7">Whether you need a ready-made tool today or a full system build, there is an option that fits where you are right now.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-bottom:2rem">
+    <div style="background:var(--teal-light);padding:1.5rem 1.25rem">
+      <p style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:0.5rem">Tier 01 &mdash; Ready-made tools</p>
+      <p style="font-family:'DM Serif Display',Georgia,serif;font-size:20px;color:var(--ink);margin-bottom:0.5rem">From &pound;49</p>
+      <p style="font-size:13px;color:var(--ink-mid);line-height:1.6;margin-bottom:1rem">Downloadable trackers, templates and checklists. Built once — yours to keep and adapt.</p>
+      <a href="tools.html" style="font-size:13px;font-weight:500;color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)">Browse tools &rarr;</a>
+    </div>
+    <div style="background:#9DCFBE;padding:1.5rem 1.25rem">
+      <p style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal-dark);margin-bottom:0.5rem">Tier 02 &mdash; System build</p>
+      <p style="font-family:'DM Serif Display',Georgia,serif;font-size:20px;color:var(--teal-dark);margin-bottom:0.5rem">From &pound;500</p>
+      <p style="font-size:13px;color:var(--teal-dark);line-height:1.6;margin-bottom:1rem">Custom operational systems built around how your business actually works. Delivered in 4&ndash;6 weeks.</p>
+      <a href="support.html" style="font-size:13px;font-weight:500;color:var(--teal-dark);text-decoration:none;border-bottom:1px solid var(--teal-dark)">Find out more &rarr;</a>
+    </div>
+    <div style="background:var(--teal-dark);padding:1.5rem 1.25rem">
+      <p style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#9FE1CB;margin-bottom:0.5rem">Tier 03 &mdash; Ongoing support</p>
+      <p style="font-family:'DM Serif Display',Georgia,serif;font-size:20px;color:#fff;margin-bottom:0.5rem">From &pound;250/month</p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6;margin-bottom:1rem">Monthly check-ins, system maintenance, and compliance reviews. Calm oversight, month after month.</p>
+      <a href="support.html#retainer" style="font-size:13px;font-weight:500;color:#9FE1CB;text-decoration:none;border-bottom:1px solid #9FE1CB">See what&rsquo;s included &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FREE GUIDE -->
+<section class="section">
+  <div class="card-teal" style="display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center">
+    <div>
+      <p class="section-label">Free resource</p>
+      <h2 style="font-size:clamp(20px,3vw,28px);margin-bottom:0.75rem">Seven things every well-run small business has in place</h2>
+      <p style="font-size:15px;color:var(--ink-mid);line-height:1.7;margin-bottom:1.5rem;max-width:400px">A practical guide to the operational foundations most small businesses are missing — and what to do about each one.</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:1.5rem">
+        <li style="font-size:14px;color:var(--teal);padding-left:20px;position:relative">
+          <span style="position:absolute;left:0;font-weight:600">&#10003;</span>Hours and payroll systems
+        </li>
+        <li style="font-size:14px;color:var(--teal);padding-left:20px;position:relative">
+          <span style="position:absolute;left:0;font-weight:600">&#10003;</span>Training and compliance tracking
+        </li>
+        <li style="font-size:14px;color:var(--teal);padding-left:20px;position:relative">
+          <span style="position:absolute;left:0;font-weight:600">&#10003;</span>Equipment and contract renewals
+        </li>
+      </ul>
+      <a href="ordena_seven_things_guide.pdf" class="btn-primary" download>Download free guide &rarr;</a>
+    </div>
+    <div style="width:100px;height:130px;background:var(--teal-dark);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="40" height="48" viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="4" width="24" height="40" rx="2" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+        <rect x="8" y="12" width="16" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
+        <rect x="8" y="18" width="16" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
+        <rect x="8" y="24" width="10" height="2" rx="1" fill="rgba(255,255,255,0.6)"/>
+        <circle cx="32" cy="38" r="8" fill="#5DCAA5"/>
+        <path d="M28 38l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHO WE WORK WITH -->
+<section style="background:var(--paper-mid);padding:64px 2rem">
+  <div style="max-width:860px;margin:0 auto">
+    <p class="section-label">Who we work with</p>
+    <h2 style="margin-bottom:0.5rem">Service-based businesses where operational chaos is costing you</h2>
+    <p style="font-size:15px;color:var(--ink-mid);margin-bottom:2rem;max-width:460px;line-height:1.7">Time, money, and management energy. If you run a small team and the admin is running you, Ordena is built for you.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+      <div class="card"><p style="font-size:14px;font-weight:500;margin-bottom:4px">Healthcare &amp; dental</p><p style="font-size:13px;color:var(--ink-light);line-height:1.5">GP practices, dental surgeries, care homes — regulated settings where compliance gaps carry real consequences.</p></div>
+      <div class="card"><p style="font-size:14px;font-weight:500;margin-bottom:4px">Hospitality &amp; retail</p><p style="font-size:13px;color:var(--ink-light);line-height:1.5">Restaurants, hotels, independent shops — fast-paced environments where systems prevent costly mistakes.</p></div>
+      <div class="card"><p style="font-size:14px;font-weight:500;margin-bottom:4px">Professional services</p><p style="font-size:13px;color:var(--ink-light);line-height:1.5">Agencies, consultancies, advisors — knowledge businesses that need operational infrastructure as they grow.</p></div>
+      <div class="card"><p style="font-size:14px;font-weight:500;margin-bottom:4px">Education &amp; childcare</p><p style="font-size:13px;color:var(--ink-light);line-height:1.5">Schools, nurseries, tutoring centres — settings where safeguarding, training and compliance are non-negotiable.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2>Find out where your gaps actually are</h2>
+  <p>The free health check takes five minutes and gives you a personalised report. No email required to start.</p>
+  <a href="ordena_diagnostic.html" class="btn-primary">Take the free health check &rarr;</a>
+  <p class="contact-line">Or <a href="contact.html">get in touch</a> to start a conversation.</p>
+</section><footer>
+  <div class="footer-inner">
+    <div>
+      <svg class="footer-logo" viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" height="26">
+        <circle cx="40" cy="20" r="7" fill="#9FE1CB"/><circle cx="52" cy="38" r="7" fill="#9FE1CB"/><circle cx="36" cy="56" r="7" fill="#9FE1CB"/><circle cx="50" cy="74" r="7" fill="#9FE1CB"/><circle cx="38" cy="92" r="7" fill="#9FE1CB"/>
+        <circle cx="78" cy="24" r="7" fill="#5DCAA5"/><circle cx="82" cy="42" r="7" fill="#5DCAA5"/><circle cx="78" cy="60" r="7" fill="#5DCAA5"/><circle cx="82" cy="78" r="7" fill="#5DCAA5"/><circle cx="78" cy="96" r="7" fill="#5DCAA5"/>
+        <circle cx="118" cy="20" r="7" fill="#085041"/><circle cx="118" cy="38" r="7" fill="#085041"/><circle cx="118" cy="56" r="7" fill="#1D9E75"/><circle cx="118" cy="74" r="7" fill="#1D9E75"/><circle cx="118" cy="92" r="7" fill="#5DCAA5"/>
+        <text x="148" y="78" font-family="Arial,sans-serif" font-size="52" font-weight="300" fill="#085041" letter-spacing="6">ORDENA</text>
+      </svg>
+      <p class="footer-note">England-based &middot; Operational support for small businesses<br>hello@ordena.co.uk &middot; ordena.co.uk</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="tools.html">Tools</a>
+      <a href="training.html">Training</a>
+      <a href="support.html">Support</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="cookies.html">Cookie Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Ordena. All rights reserved.</span>
+    <span>Registered in England &middot; Operational consultancy for service businesses</span>
+  </div>
+</footer>
+<script>
+function toggleMenu(){
+  const m=document.getElementById('mobileMenu');
+  m.classList.toggle('open');
+}
+</script></div></body></html>
